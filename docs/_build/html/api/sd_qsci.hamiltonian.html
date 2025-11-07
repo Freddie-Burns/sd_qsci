@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sd_qsci.hamiltonian package &mdash; sd_qsci 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="sd_qsci package" href="sd_qsci.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            sd_qsci
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="sd_qsci.html">sd_qsci package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="sd_qsci.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sd_qsci.hamiltonian package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-sd_qsci.hamiltonian.checks">sd_qsci.hamiltonian.checks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-sd_qsci.hamiltonian.fermion_hamiltonian">sd_qsci.hamiltonian.fermion_hamiltonian module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-sd_qsci.hamiltonian.fermion_ops">sd_qsci.hamiltonian.fermion_ops module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-sd_qsci.hamiltonian.pyscf_glue">sd_qsci.hamiltonian.pyscf_glue module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-sd_qsci.hamiltonian.spin_blocks">sd_qsci.hamiltonian.spin_blocks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-sd_qsci.hamiltonian">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sd_qsci.html#module-sd_qsci">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sd_qsci.html#sd_qsci.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">sd_qsci</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="sd_qsci.html">sd_qsci package</a></li>
+      <li class="breadcrumb-item active">sd_qsci.hamiltonian package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/sd_qsci.hamiltonian.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sd-qsci-hamiltonian-package">
+<h1>sd_qsci.hamiltonian package<a class="headerlink" href="#sd-qsci-hamiltonian-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-sd_qsci.hamiltonian.checks">
+<span id="sd-qsci-hamiltonian-checks-module"></span><h2>sd_qsci.hamiltonian.checks module<a class="headerlink" href="#module-sd_qsci.hamiltonian.checks" title="Link to this heading"></a></h2>
+<p>Check molecular orbital integrals give correct RHF energy.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="sd_qsci.hamiltonian.checks.rhf_energy_from_mo_integrals">
+<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.checks.</span></span><span class="sig-name descname"><span class="pre">rhf_energy_from_mo_integrals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/checks.html#rhf_energy_from_mo_integrals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.checks.rhf_energy_from_mo_integrals" title="Link to this definition"></a></dt>
+<dd><p>Compute RHF total energy directly from MO integrals. Assumes closed-shell
+(RHF) occupations: doubly-occupy the lowest nocc spatial MOs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-sd_qsci.hamiltonian.fermion_hamiltonian">
+<span id="sd-qsci-hamiltonian-fermion-hamiltonian-module"></span><h2>sd_qsci.hamiltonian.fermion_hamiltonian module<a class="headerlink" href="#module-sd_qsci.hamiltonian.fermion_hamiltonian" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sd_qsci.hamiltonian.fermion_hamiltonian.hamiltonian_matrix">
+<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.fermion_hamiltonian.</span></span><span class="sig-name descname"><span class="pre">hamiltonian_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g2_phys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enuc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/fermion_hamiltonian.html#hamiltonian_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.fermion_hamiltonian.hamiltonian_matrix" title="Link to this definition"></a></dt>
+<dd><p>Build the full Fock-space Hamiltonian using precomputed sparse ladder operators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h1</strong> (<em>ndarray</em>) – One-electron integrals matrix of shape (N, N).</p></li>
+<li><p><strong>g2_phys</strong> (<em>ndarray</em>) – Two-electron integrals tensor in physicist notation of shape (N, N, N, N).</p></li>
+<li><p><strong>enuc</strong> (<em>float</em><em>, </em><em>optional</em>) – Nuclear repulsion energy, by default 0.0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Sparse matrix representation of the many-body Hamiltonian.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scipy.sparse.csr_matrix</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sd_qsci.hamiltonian.fermion_hamiltonian.ladder_operators">
+<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.fermion_hamiltonian.</span></span><span class="sig-name descname"><span class="pre">ladder_operators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/fermion_hamiltonian.html#ladder_operators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.fermion_hamiltonian.ladder_operators" title="Link to this definition"></a></dt>
+<dd><p>Generate annihilation and creation operator matrices for N spin orbitals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>N</strong> (<em>int</em>) – Number of spin orbitals.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>([a_p], [a_p†]) where each element is a sparse matrix representing
+the annihilation and creation operators respectively.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of lists</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-sd_qsci.hamiltonian.fermion_ops">
+<span id="sd-qsci-hamiltonian-fermion-ops-module"></span><h2>sd_qsci.hamiltonian.fermion_ops module<a class="headerlink" href="#module-sd_qsci.hamiltonian.fermion_ops" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sd_qsci.hamiltonian.fermion_ops.annihilate">
+<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.fermion_ops.</span></span><span class="sig-name descname"><span class="pre">annihilate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/fermion_ops.html#annihilate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.fermion_ops.annihilate" title="Link to this definition"></a></dt>
+<dd><p>Apply a_q to <a href="#id1"><span class="problematic" id="id2">|</span></a>state&gt;. Returns (phase, new_state) or None if occupation is 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<em>int</em>)</p></li>
+<li><p><strong>q</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sd_qsci.hamiltonian.fermion_ops.create">
+<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.fermion_ops.</span></span><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/fermion_ops.html#create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.fermion_ops.create" title="Link to this definition"></a></dt>
+<dd><p>Apply a_p^dagger to <a href="#id3"><span class="problematic" id="id4">|</span></a>state&gt;. Returns (phase, new_state) or None if occupation is 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<em>int</em>)</p></li>
+<li><p><strong>p</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-sd_qsci.hamiltonian.pyscf_glue">
+<span id="sd-qsci-hamiltonian-pyscf-glue-module"></span><h2>sd_qsci.hamiltonian.pyscf_glue module<a class="headerlink" href="#module-sd_qsci.hamiltonian.pyscf_glue" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sd_qsci.hamiltonian.pyscf_glue.hamiltonian_from_pyscf">
+<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.pyscf_glue.</span></span><span class="sig-name descname"><span class="pre">hamiltonian_from_pyscf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/pyscf_glue.html#hamiltonian_from_pyscf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.pyscf_glue.hamiltonian_from_pyscf" title="Link to this definition"></a></dt>
+<dd><p>Return the sparse Hamiltonian (csr) on the full spin-orbital Fock space.
+Acts on an occupation number vector basis.
+BLOCK spin ordering: [α0..α(n-1), β0..β(n-1)].</p>
+</dd></dl>
+
+</section>
+<section id="module-sd_qsci.hamiltonian.spin_blocks">
+<span id="sd-qsci-hamiltonian-spin-blocks-module"></span><h2>sd_qsci.hamiltonian.spin_blocks module<a class="headerlink" href="#module-sd_qsci.hamiltonian.spin_blocks" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sd_qsci.hamiltonian.spin_blocks.spin_expand_1e">
+<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.spin_blocks.</span></span><span class="sig-name descname"><span class="pre">spin_expand_1e</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1_spatial</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/spin_blocks.html#spin_expand_1e"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.spin_blocks.spin_expand_1e" title="Link to this definition"></a></dt>
+<dd><p>Expand spatial 1e integrals (n,n) into spin-orbital (2n,2n) in BLOCK order (all α then all β).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>h1_spatial</strong> (<em>ndarray</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>ndarray</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sd_qsci.hamiltonian.spin_blocks.spin_expand_2e_phys">
+<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.spin_blocks.</span></span><span class="sig-name descname"><span class="pre">spin_expand_2e_phys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g_phys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/spin_blocks.html#spin_expand_2e_phys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.spin_blocks.spin_expand_2e_phys" title="Link to this definition"></a></dt>
+<dd><p>Expand spatial 2e integrals in physicist order (p,r,q,s) into spin-orbital (BLOCK α…β).
+Nonzero only when spin(P)==spin(R) and spin(Q)==spin(S).
+Returns G[P,Q,R,S] with shape (2n,2n,2n,2n).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>g_phys</strong> (<em>ndarray</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>ndarray</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-sd_qsci.hamiltonian">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-sd_qsci.hamiltonian" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sd_qsci.html" class="btn btn-neutral float-left" title="sd_qsci package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Freddie Burns.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
