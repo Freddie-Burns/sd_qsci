@@ -115,10 +115,11 @@ uv run pytest
 
 * *Qiskit Nature Documentation*
 * *PySCF: The Python-based Simulations of Chemistry Framework*
-* Szabo & Ostlund, *Modern Quantum Chemistry* (1989)
+* Helgaker, Jørgensen, Olsen, *Molecular Electronic-Structure Theory* (2000)
 
 ---
 
 ## License
 
-MIT License © [Your Name] 2025
+MIT License © [Freddie Burns] 2025
+
