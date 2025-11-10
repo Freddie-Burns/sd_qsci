@@ -8,8 +8,11 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "ffsim>=0.0.61",
     "matplotlib>=3.10.7",
     "numpy>=2.3.4",
+    "pandas>=2.3.3",
+    "pylatexenc>=2.10",
     "pyscf>=2.11.0",
     "pytest>=8.4.2",
     "qiskit>=2.2.3",
