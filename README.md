@@ -5,7 +5,7 @@
 **Investigating the effectiveness of single Slater determinant trial wavefunctions for quantum simulation and QSCI methods.**
 
 This project explores how well simple mean-field states—such as unrestricted or restricted Hartree–Fock (UHF/RHF) single determinants—serve as **trial wavefunctions** in **quantum simulation chemistry (QSCI)** workflows.
-The goal is to benchmark their performance and limitations when used in hybrid classical–quantum methods like VQE and related post-HF quantum algorithms.
+The goal is to benchmark their performance and limitations when used in hybrid classical–quantum methods and related post-HF quantum algorithms.
 
 ---
 
@@ -61,7 +61,7 @@ uv sync --dev
 Main dependencies:
 
 * [PySCF](https://pyscf.org) — reference mean-field and integrals
-* [Qiskit](https://qiskit.org) — quantum simulation and VQE
+* [Qiskit](https://qiskit.org) — quantum simulation
 * [NumPy](https://numpy.org)
 * [pytest](https://docs.pytest.org) — testing framework
 * [JupyterLab](https://jupyter.org) — interactive analysis
@@ -88,7 +88,7 @@ Example notebook:
 notebooks/01_h2_uhf_trial.ipynb
 ```
 
-Demonstrates generating an unrestricted Hartree–Fock determinant for H₂ and evaluating its effectiveness in a small VQE circuit.
+Demonstrates generating an unrestricted Hartree–Fock determinant for H₂ and evaluating its effectiveness in a small QSCI circuit.
 
 ---
 
@@ -122,4 +122,5 @@ uv run pytest
 ## License
 
 MIT License © [Freddie Burns] 2025
+
 
