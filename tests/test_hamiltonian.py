@@ -3,7 +3,7 @@ from pyscf import gto, scf
 from sd_qsci.hamiltonian.spin_blocks import spin_expand_1e, spin_expand_2e_phys
 from sd_qsci.hamiltonian.fermion_ops import create, annihilate
 from sd_qsci.hamiltonian.fermion_hamiltonian import hamiltonian_matrix
-from sd_qsci.hamiltonian.pyscf_glue import occ_hamiltonian_from_pyscf
+from sd_qsci.hamiltonian.pyscf_glue import hamiltonian_from_pyscf
 from sd_qsci.hamiltonian.checks import rhf_energy_from_mo_integrals
 
 def test_create_annihilate_roundtrip():

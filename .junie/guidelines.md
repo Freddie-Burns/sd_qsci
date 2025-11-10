@@ -110,8 +110,6 @@ Per the task requirement, this file was only for demonstration and has been remo
 - `src/sd_qsci/hamiltonian/fermion_hamiltonian.py`, `checks.py`
   - Construct sparse Hamiltonian on occupation basis and validate energies from MO integrals.
 
-Note: The current `tests/test_hamiltonian.py` imports `occ_hamiltonian_from_pyscf` but the implementation exports `hamiltonian_from_pyscf`. If you encounter an import error, either adapt the test import or add a thin alias in the module. This doc does not change code; it flags the mismatch for developers to resolve in code review.
-
 ### 3.2 Performance knobs (numerics/BLAS/SCF)
 
 - Control threads during tests to avoid oversubscription and improve determinism:
