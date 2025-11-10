@@ -103,3 +103,29 @@ def uhf_to_rhf_unitaries(mol: Mole, rhf: RHF, uhf: UHF) -> list:
     #     Ub[:, 0] *= -1
 
     return Ua, Ub
+
+
+def find_spin_symmetric_configs(n_bits, idx):
+    """
+    Identifies which configurations have/don't have their spin-flipped counterparts in the sample.
+
+    Args:
+        n_bits: Total number of bits in the configuration
+        idx: Indices of sampled configurations
+
+    Returns:
+        sampled_configs: List of sampled configurations
+        symm_configs: Set of all configurations and their spin-flipped counterparts
+    """
+    sampled_configs = [f"{i:>0{n_bits}b}" for i in idx]
+    symm_configs = set()
+    for config in sampled_configs:
+        half = len(config) // 2
+        spin_swapped = config[half:] + config[:half]
+        symm_configs.add(config)
+        symm_configs.add(spin_swapped)
+
+    # Order the bitstrings for consistency
+    sampled_configs = sorted(sampled_configs, key=lambda x: int(x, 2))
+    symm_configs = sorted(symm_configs, key=lambda x: int(x, 2))
+    return sampled_configs, symm_configs
