@@ -90,6 +90,10 @@ notebooks/01_h2_uhf_trial.ipynb
 
 Demonstrates generating an unrestricted Hartree–Fock determinant for H₂ and evaluating its effectiveness in a small VQE circuit.
 
+```
+notebooks/hamiltonian_tutorial.ipynb
+```
+
 ---
 
 ## Testing
@@ -122,4 +126,3 @@ uv run pytest
 ## License
 
 MIT License © [Freddie Burns] 2025
-
