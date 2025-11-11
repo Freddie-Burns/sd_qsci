@@ -2,7 +2,7 @@
 
 # Single Determinant QSCI
 
-**Investigating the effectiveness of single Slater determinant trial wavefunctions for quantum simulation and QSCI methods.**
+**Investigating the effectiveness of single Slater determinant trial wavefunctions for QSCI methods.**
 
 This project explores how well simple mean-field states—such as unrestricted or restricted Hartree–Fock (UHF/RHF) single determinants—serve as **trial wavefunctions** in **quantum simulation chemistry (QSCI)** workflows.
 The goal is to benchmark their performance and limitations when used in hybrid classical–quantum methods and related post-HF quantum algorithms.
@@ -152,4 +152,5 @@ The documentation includes:
 ## License
 
 MIT License © [Freddie Burns] 2025
+
 
