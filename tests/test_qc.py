@@ -1,10 +1,10 @@
 import numpy as np
 import pytest
 
-from pyscf import gto, scf  # noqa: E402
-from pyscf.scf.uhf import UHF  # noqa: E402
+from pyscf import gto, scf
+from pyscf.scf.uhf import UHF
 
-from sd_qsci.qc import (  # noqa: E402
+from sd_qsci.qc import (
     build_orbital_rotation_circuit,
     rhf_uhf_orbital_rotation_circuit,
     run_statevector,
@@ -36,7 +36,7 @@ def test_build_orbital_rotation_circuit_structure():
     assert len(qc.data) > 0
 
 
-def test_run_statevector_one_qubit_X():
+def test_run_statevector_one_qubit_x():
     pytest.importorskip("qiskit")
     pytest.importorskip("qiskit_aer")
 
