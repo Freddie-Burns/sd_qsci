@@ -10,7 +10,7 @@ from pyscf import gto, scf, fci
 from scipy.sparse.linalg import eigsh
 
 from sd_qsci.utils import uhf_from_rhf, uhf_to_rhf_unitaries
-from sd_qsci import qc
+from sd_qsci import circuit
 from sd_qsci.hamiltonian import hamiltonian_from_pyscf
 from sd_qsci.spin import total_spin_S2
 from sd_qsci.utils import find_spin_symmetric_configs
@@ -18,10 +18,10 @@ from sd_qsci.utils import find_spin_symmetric_configs
 # Setup molecule
 a = 2  # Angstrom
 coords = [
-    (0.0 * a, 0.0, 0.0),
-    (1.0 * a, 0.0, 0.0),
-    (2.0 * a, 0.0, 0.0),
-    (3.0 * a, 0.0, 0.0),
+    (0 * a, 0, 0),
+    (1 * a, 0, 0),
+    (2 * a, 0, 0),
+    (3 * a, 0, 0),
 ]
 geometry = '; '.join([f'H {x:.8f} {y:.8f} {z:.8f}' for x, y, z in coords])
 mol = gto.Mole()
@@ -41,8 +41,9 @@ uhf = uhf_from_rhf(mol, rhf)
 Ua, Ub = uhf_to_rhf_unitaries(mol, rhf, uhf)
 
 # Create and run quantum circuit
-qc = qc.orbital_rotation_circuit(norb=mol.nao, nelec=mol.nelec, Ua=Ua, Ub=Ub)
-statevector = qc.run_statevector(qc)
+# qc = circuit.orbital_rotation_circuit(nao=mol.nao, nelec=mol.nelec, Ua=Ua, Ub=Ub)
+qc = circuit.rhf_uhf_orbital_rotation_circuit(mol=mol, rhf=rhf, uhf=uhf)
+statevector = circuit.run_statevector(qc)
 
 # Analyze statevector
 sv_abs = np.abs(statevector.data)

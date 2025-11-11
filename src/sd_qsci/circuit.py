@@ -132,7 +132,7 @@ def rhf_uhf_orbital_rotation_circuit(
     return qc, uhf, (Ua, Ub)
 
 
-def run_statevector(circuit, *, optimization_level: int = 1):
+def run_statevector(qc, *, optimization_level: int = 1):
     """
     Execute a circuit on Qiskit Aer statevector simulator and return the
     resulting statevector.
@@ -153,7 +153,7 @@ def run_statevector(circuit, *, optimization_level: int = 1):
     from qiskit import transpile
 
     backend = Aer.get_backend("statevector_simulator")
-    tqc = transpile(circuit, backend, optimization_level=optimization_level)
+    tqc = transpile(qc, backend, optimization_level=optimization_level)
     job = backend.run(tqc)
     result = job.result()
     return result.get_statevector()
