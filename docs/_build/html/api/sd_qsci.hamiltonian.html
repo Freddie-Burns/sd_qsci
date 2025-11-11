@@ -50,7 +50,7 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">sd_qsci.hamiltonian package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="sd_qsci.html#module-sd_qsci">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sd_qsci.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -88,254 +88,23 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="module-sd_qsci.hamiltonian.checks">
-<span id="sd-qsci-hamiltonian-checks-module"></span><h2>sd_qsci.hamiltonian.checks module<a class="headerlink" href="#module-sd_qsci.hamiltonian.checks" title="Link to this heading"></a></h2>
-<p>Check molecular orbital integrals give correct RHF energy.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="sd_qsci.hamiltonian.checks.rhf_energy_from_mo_integrals">
-<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.checks.</span></span><span class="sig-name descname"><span class="pre">rhf_energy_from_mo_integrals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/checks.html#rhf_energy_from_mo_integrals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.checks.rhf_energy_from_mo_integrals" title="Link to this definition"></a></dt>
-<dd><p>Compute RHF total energy directly from MO integrals. Assumes closed-shell
-(RHF) occupations: doubly-occupy the lowest nocc spatial MOs.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="sd-qsci-hamiltonian-checks-module">
+<h2>sd_qsci.hamiltonian.checks module<a class="headerlink" href="#sd-qsci-hamiltonian-checks-module" title="Link to this heading"></a></h2>
 </section>
-<section id="module-sd_qsci.hamiltonian.fermion_hamiltonian">
-<span id="sd-qsci-hamiltonian-fermion-hamiltonian-module"></span><h2>sd_qsci.hamiltonian.fermion_hamiltonian module<a class="headerlink" href="#module-sd_qsci.hamiltonian.fermion_hamiltonian" title="Link to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="sd_qsci.hamiltonian.fermion_hamiltonian.hamiltonian_matrix">
-<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.fermion_hamiltonian.</span></span><span class="sig-name descname"><span class="pre">hamiltonian_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g2_phys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enuc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/fermion_hamiltonian.html#hamiltonian_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.fermion_hamiltonian.hamiltonian_matrix" title="Link to this definition"></a></dt>
-<dd><p>Build the full Fock-space Hamiltonian using precomputed sparse ladder operators.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>h1</strong> (<em>ndarray</em>) – One-electron integrals matrix of shape (N, N).</p></li>
-<li><p><strong>g2_phys</strong> (<em>ndarray</em>) – Two-electron integrals tensor in physicist notation of shape (N, N, N, N).</p></li>
-<li><p><strong>enuc</strong> (<em>float</em><em>, </em><em>optional</em>) – Nuclear repulsion energy, by default 0.0.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Sparse matrix representation of the many-body Hamiltonian.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>scipy.sparse.csr_matrix</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sd_qsci.hamiltonian.fermion_hamiltonian.ladder_operators">
-<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.fermion_hamiltonian.</span></span><span class="sig-name descname"><span class="pre">ladder_operators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/fermion_hamiltonian.html#ladder_operators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.fermion_hamiltonian.ladder_operators" title="Link to this definition"></a></dt>
-<dd><p>Generate annihilation and creation operator matrices for N spin orbitals.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>N</strong> (<em>int</em>) – Number of spin orbitals.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>([a_p], [a_p†]) where each element is a sparse matrix representing
-the annihilation and creation operators respectively.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple of lists</p>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="sd-qsci-hamiltonian-fermion-hamiltonian-module">
+<h2>sd_qsci.hamiltonian.fermion_hamiltonian module<a class="headerlink" href="#sd-qsci-hamiltonian-fermion-hamiltonian-module" title="Link to this heading"></a></h2>
 </section>
-<section id="module-sd_qsci.hamiltonian.fermion_ops">
-<span id="sd-qsci-hamiltonian-fermion-ops-module"></span><h2>sd_qsci.hamiltonian.fermion_ops module<a class="headerlink" href="#module-sd_qsci.hamiltonian.fermion_ops" title="Link to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="sd_qsci.hamiltonian.fermion_ops.annihilate">
-<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.fermion_ops.</span></span><span class="sig-name descname"><span class="pre">annihilate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/fermion_ops.html#annihilate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.fermion_ops.annihilate" title="Link to this definition"></a></dt>
-<dd><p>Apply the fermionic annihilation operator <code class="docutils literal notranslate"><span class="pre">a_q</span></code> to the computational
-basis state <code class="docutils literal notranslate"><span class="pre">|state&gt;</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Returns <code class="docutils literal notranslate"><span class="pre">None</span></code> if the occupation at mode <code class="docutils literal notranslate"><span class="pre">q</span></code> is zero.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>(phase, new_state) or <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
-</dd>
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>state</strong> (<em>int</em>)</p></li>
-<li><p><strong>q</strong> (<em>int</em>)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sd_qsci.hamiltonian.fermion_ops.create">
-<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.fermion_ops.</span></span><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/fermion_ops.html#create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.fermion_ops.create" title="Link to this definition"></a></dt>
-<dd><p>Apply the fermionic creation operator <code class="docutils literal notranslate"><span class="pre">a_p†</span></code> to the computational
-basis state <code class="docutils literal notranslate"><span class="pre">|state&gt;</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Returns <code class="docutils literal notranslate"><span class="pre">None</span></code> if the occupation at mode <code class="docutils literal notranslate"><span class="pre">p</span></code> is already one.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>(phase, new_state) or <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
-</dd>
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>state</strong> (<em>int</em>)</p></li>
-<li><p><strong>p</strong> (<em>int</em>)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="sd-qsci-hamiltonian-fermion-ops-module">
+<h2>sd_qsci.hamiltonian.fermion_ops module<a class="headerlink" href="#sd-qsci-hamiltonian-fermion-ops-module" title="Link to this heading"></a></h2>
 </section>
-<section id="module-sd_qsci.hamiltonian.pyscf_glue">
-<span id="sd-qsci-hamiltonian-pyscf-glue-module"></span><h2>sd_qsci.hamiltonian.pyscf_glue module<a class="headerlink" href="#module-sd_qsci.hamiltonian.pyscf_glue" title="Link to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="sd_qsci.hamiltonian.pyscf_glue.hamiltonian_from_pyscf">
-<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.pyscf_glue.</span></span><span class="sig-name descname"><span class="pre">hamiltonian_from_pyscf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/pyscf_glue.html#hamiltonian_from_pyscf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.pyscf_glue.hamiltonian_from_pyscf" title="Link to this definition"></a></dt>
-<dd><p>Return the sparse Hamiltonian (csr) on the full spin-orbital Fock space.
-Acts on an occupation number vector basis.
-BLOCK spin ordering: [α0..α(n-1), β0..β(n-1)].</p>
-</dd></dl>
-
+<section id="sd-qsci-hamiltonian-pyscf-glue-module">
+<h2>sd_qsci.hamiltonian.pyscf_glue module<a class="headerlink" href="#sd-qsci-hamiltonian-pyscf-glue-module" title="Link to this heading"></a></h2>
 </section>
-<section id="module-sd_qsci.hamiltonian.spin_blocks">
-<span id="sd-qsci-hamiltonian-spin-blocks-module"></span><h2>sd_qsci.hamiltonian.spin_blocks module<a class="headerlink" href="#module-sd_qsci.hamiltonian.spin_blocks" title="Link to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="sd_qsci.hamiltonian.spin_blocks.spin_expand_1e">
-<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.spin_blocks.</span></span><span class="sig-name descname"><span class="pre">spin_expand_1e</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1_spatial</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/spin_blocks.html#spin_expand_1e"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.spin_blocks.spin_expand_1e" title="Link to this definition"></a></dt>
-<dd><p>Expand spatial 1e integrals (n,n) into spin-orbital (2n,2n) in BLOCK order (all α then all β).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>h1_spatial</strong> (<em>numpy.ndarray</em>)</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sd_qsci.hamiltonian.spin_blocks.spin_expand_2e_phys">
-<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.spin_blocks.</span></span><span class="sig-name descname"><span class="pre">spin_expand_2e_phys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g_phys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/spin_blocks.html#spin_expand_2e_phys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.spin_blocks.spin_expand_2e_phys" title="Link to this definition"></a></dt>
-<dd><p>Expand spatial 2e integrals in physicist order (p,r,q,s) into spin-orbital (BLOCK α…β).
-Nonzero only when spin(P)==spin(R) and spin(Q)==spin(S).
-Returns G[P,Q,R,S] with shape (2n,2n,2n,2n).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>g_phys</strong> (<em>numpy.ndarray</em>)</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="sd-qsci-hamiltonian-spin-blocks-module">
+<h2>sd_qsci.hamiltonian.spin_blocks module<a class="headerlink" href="#sd-qsci-hamiltonian-spin-blocks-module" title="Link to this heading"></a></h2>
 </section>
-<section id="module-sd_qsci.hamiltonian">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-sd_qsci.hamiltonian" title="Link to this heading"></a></h2>
-<p>Hamiltonian construction and manipulation for quantum systems.</p>
-<p>This module provides tools for building and working with many-body Hamiltonians
-in the fermionic second quantization formalism.</p>
-<section id="main-entry-points">
-<h3>Main Entry Points<a class="headerlink" href="#main-entry-points" title="Link to this heading"></a></h3>
-<dl class="simple">
-<dt>hamiltonian_from_pyscf<span class="classifier">Build Hamiltonian directly from PySCF output</span></dt><dd><p>Converts a PySCF RHF molecule object to a full Fock-space Hamiltonian matrix.
-Handles spin-orbital expansion and integral transformations automatically.</p>
-</dd>
-<dt>hamiltonian_matrix<span class="classifier">Build Hamiltonian from pre-computed integrals</span></dt><dd><p>Lower-level entry point for users who already have MO integrals in the
-desired format. Requires one- and two-electron integrals.</p>
-</dd>
-</dl>
-</section>
-<section id="utilities">
-<h3>Utilities<a class="headerlink" href="#utilities" title="Link to this heading"></a></h3>
-<dl class="simple">
-<dt>ladder_operators<span class="classifier">Generate fermionic ladder operators</span></dt><dd><p>Creates annihilation and creation operator matrices for manipulating
-fermionic states. Useful for manual Hamiltonian construction or
-custom analysis.</p>
-</dd>
-<dt>rhf_energy_from_mo_integrals<span class="classifier">Compute RHF energy from MO integrals</span></dt><dd><p>Validation function to verify that MO integrals are correct by
-reproducing the RHF energy.</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p>Build Hamiltonian from PySCF:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span> <span class="n">gto</span><span class="p">,</span> <span class="n">scf</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sd</span><span class="o">-</span><span class="n">qsci</span><span class="o">.</span><span class="n">hamiltonian</span> <span class="kn">import</span><span class="w"> </span><span class="nn">hamiltonian_from_pyscf</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s1">&#39;H 0 0 0; H 0 0 1&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;sto-3g&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">rhf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">hamiltonian_from_pyscf</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">rhf</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Build Hamiltonian from integrals:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sd</span><span class="o">-</span><span class="n">qsci</span><span class="o">.</span><span class="n">hamiltonian</span> <span class="kn">import</span><span class="w"> </span><span class="nn">hamiltonian_matrix</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">hamiltonian_matrix</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="n">g2_phys</span><span class="p">,</span> <span class="n">enuc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<dl class="py function">
-<dt class="sig sig-object py" id="sd_qsci.hamiltonian.hamiltonian_from_pyscf">
-<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.</span></span><span class="sig-name descname"><span class="pre">hamiltonian_from_pyscf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/pyscf_glue.html#hamiltonian_from_pyscf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.hamiltonian_from_pyscf" title="Link to this definition"></a></dt>
-<dd><p>Return the sparse Hamiltonian (csr) on the full spin-orbital Fock space.
-Acts on an occupation number vector basis.
-BLOCK spin ordering: [α0..α(n-1), β0..β(n-1)].</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sd_qsci.hamiltonian.hamiltonian_matrix">
-<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.</span></span><span class="sig-name descname"><span class="pre">hamiltonian_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g2_phys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enuc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/fermion_hamiltonian.html#hamiltonian_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.hamiltonian_matrix" title="Link to this definition"></a></dt>
-<dd><p>Build the full Fock-space Hamiltonian using precomputed sparse ladder operators.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>h1</strong> (<em>ndarray</em>) – One-electron integrals matrix of shape (N, N).</p></li>
-<li><p><strong>g2_phys</strong> (<em>ndarray</em>) – Two-electron integrals tensor in physicist notation of shape (N, N, N, N).</p></li>
-<li><p><strong>enuc</strong> (<em>float</em><em>, </em><em>optional</em>) – Nuclear repulsion energy, by default 0.0.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Sparse matrix representation of the many-body Hamiltonian.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>scipy.sparse.csr_matrix</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sd_qsci.hamiltonian.ladder_operators">
-<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.</span></span><span class="sig-name descname"><span class="pre">ladder_operators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/fermion_hamiltonian.html#ladder_operators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.ladder_operators" title="Link to this definition"></a></dt>
-<dd><p>Generate annihilation and creation operator matrices for N spin orbitals.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>N</strong> (<em>int</em>) – Number of spin orbitals.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>([a_p], [a_p†]) where each element is a sparse matrix representing
-the annihilation and creation operators respectively.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple of lists</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sd_qsci.hamiltonian.rhf_energy_from_mo_integrals">
-<span class="sig-prename descclassname"><span class="pre">sd_qsci.hamiltonian.</span></span><span class="sig-name descname"><span class="pre">rhf_energy_from_mo_integrals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sd_qsci/hamiltonian/checks.html#rhf_energy_from_mo_integrals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sd_qsci.hamiltonian.rhf_energy_from_mo_integrals" title="Link to this definition"></a></dt>
-<dd><p>Compute RHF total energy directly from MO integrals. Assumes closed-shell
-(RHF) occupations: doubly-occupy the lowest nocc spatial MOs.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
 </section>
 </section>
 

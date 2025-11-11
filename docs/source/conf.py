@@ -31,21 +31,16 @@ extensions = [
 templates_path = ['_templates']
 exclude_patterns = []
 
-# If some heavy deps (numpy, pyscf, ...) are not available in the build
-# environment, mock them so autodoc can import the package without failing.
-# Add any other packages that cause import-time failures here.
-autodoc_mock_imports = [
-    "numpy",
-    "pyscf",
-    "pyscf.gto",
-    "pyscf.scf",
-    "pyscf.fci",
-    "scipy",
-    "scipy.sparse",
-    "ffsim",
-    "qiskit",
-    "qiskit_aer",
-]
+# Mock imports for packages not available in the build environment.
+# Uncomment these if building docs without installing heavy dependencies:
+# autodoc_mock_imports = [
+#     "numpy",
+#     "pyscf",
+#     "scipy",
+#     "ffsim",
+#     "qiskit",
+#     "qiskit_aer",
+# ]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

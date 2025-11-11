@@ -1,14 +1,14 @@
 [project]
 name = "sd-qsci"
 version = "0.1.0"
-description = "Add your description here"
+description = "Single determinant QSCI investigation "
 readme = "README.md"
 license = { file = "LICENSE" }
 classifiers = [
     "License :: OSI Approved :: MIT License",
 ]
 authors = [
-    { name = "fredd", email = "freddieburns@hotmail.co.uk" }
+    { name = "Freddie Burns", email = "freddie.burns.2020@bristol.ac.uk" }
 ]
 requires-python = ">=3.12"
 dependencies = [
@@ -18,7 +18,6 @@ dependencies = [
     "pandas>=2.3.3",
     "pylatexenc>=2.10",
     "pyscf>=2.11.0",
-    "pytest>=8.4.2",
     "qiskit>=2.2.3",
     "qiskit-aer>=0.17.2",
     "scipy>=1.16.3",
@@ -36,6 +35,7 @@ build-backend = "uv_build"
 dev = [
     "furo>=2025.9.25",
     "myst-parser>=4.0.1",
+    "pytest>=8.4.2",
     "sphinx>=8.2.3",
     "sphinx-autobuild>=2025.8.25",
     "sphinx-rtd-theme>=3.0.2",
