@@ -18,7 +18,7 @@ def hamiltonian_from_pyscf(mol, rhf):
     h1_spatial = C.T @ h1_ao @ C
 
     # 2e AO->MO, chemist order -> restore -> physicist order (swap middle indices)
-    eri_mo_packed = ao2mo.full(mol, C)                    # packed (pq|rs), chemist
+    eri_mo_packed = ao2mo.full(mol, C)  # packed (pq|rs), chemist
     eri_mo_chem   = ao2mo.restore(1, eri_mo_packed, nmo)  # (n,n,n,n)
     g_spatial_phys = np.transpose(eri_mo_chem, (0, 2, 1, 3))  # (pr|qs)
 
