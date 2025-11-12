@@ -89,7 +89,7 @@ def orbital_rotation_circuit(
 def rhf_uhf_orbital_rotation_circuit(
     mol: Mole,
     rhf: RHF,
-    uhf: UHF | None = None,
+    uhf: UHF,
     *,
     optimize_single_slater: bool = True,
 ):
