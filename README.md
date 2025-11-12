@@ -33,8 +33,7 @@ sd-qsci/
 │     ├─ qc.py            # Quantum circuit creation and execution
 │     ├─ spin.py          # Spin analysis utilities
 │     ├─ utils.py         # General utilities
-│     ├─ hamiltonian/     # Hamiltonian construction from PySCF
-│     └─ __pycache__/
+│     └─ hamiltonian/     # Hamiltonian construction from PySCF
 ├─ research/              # Research experiments and workflows
 │  ├── __init__.py
 │  ├── experiments/       # Standalone research scripts
@@ -152,5 +151,6 @@ The documentation includes:
 ## License
 
 MIT License © [Freddie Burns] 2025
+
 
 
