@@ -19,7 +19,7 @@ def main():
         rhf = scf.RHF(mol).run()
         uhf = uhf_from_rhf(mol, rhf)
         qc = circuit.rhf_uhf_orbital_rotation_circuit(mol, rhf, uhf)
-        sv = circuit.run_statevector(qc)
+        sv = circuit.simulate(qc)
         H = hamiltonian.hamiltonian_from_pyscf(mol, rhf)
         qsci_energy(H, sv)
 

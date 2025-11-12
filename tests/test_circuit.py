@@ -7,7 +7,7 @@ from pyscf.scf.uhf import UHF
 from sd_qsci.circuit import (
     orbital_rotation_circuit,
     rhf_uhf_orbital_rotation_circuit,
-    run_statevector,
+    simulate,
 )
 
 
@@ -36,7 +36,7 @@ def test_orbital_rotation_circuit():
     assert len(qc.data) > 0
 
 
-def test_run_statevector_one_qubit_x():
+def test_simulate_circuit_one_qubit_x():
     pytest.importorskip("qiskit")
     pytest.importorskip("qiskit_aer")
 
@@ -45,7 +45,7 @@ def test_run_statevector_one_qubit_x():
     qc = QuantumCircuit(1)
     qc.x(0)  # |0> -> |1>
 
-    sv = run_statevector(qc)
+    sv = simulate(qc)
     # Probability of |1> should be 1
     assert np.isclose(abs(sv.data[1]) ** 2, 1.0)
 
@@ -144,7 +144,7 @@ def test_uhf_orbital_rotation_energy_preservation(n_atoms, spacing, basis):
     assert len(qc.data) > 0
 
     # Step 5: Simulate the quantum circuit
-    statevector = run_statevector(qc)
+    statevector = simulate(qc)
 
     # Verify statevector is normalized
     assert np.isclose(np.linalg.norm(statevector.data), 1.0, atol=1e-10)

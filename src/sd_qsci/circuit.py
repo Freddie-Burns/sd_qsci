@@ -126,7 +126,7 @@ def rhf_uhf_orbital_rotation_circuit(
     return qc
 
 
-def run_statevector(qc, *, optimization_level: int = 1):
+def simulate(qc, *, optimization_level: int=1):
     """
     Execute a circuit on Qiskit Aer statevector simulator and return the
     resulting statevector.
@@ -156,5 +156,5 @@ def run_statevector(qc, *, optimization_level: int = 1):
 __all__ = [
     "orbital_rotation_circuit",
     "rhf_uhf_orbital_rotation_circuit",
-    "run_statevector",
+    "simulate",
 ]
