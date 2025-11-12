@@ -1,4 +1,4 @@
-from __future__ import annotations
+from __future__ import annotations  # prevents sphinx docs type error
 
 """
 Quantum-circuit helpers for orbital rotation workflows.
@@ -27,7 +27,7 @@ from pyscf.gto import Mole
 from pyscf.scf.hf import RHF
 from pyscf.scf.uhf import UHF
 
-from .utils import uhf_from_rhf, uhf_to_rhf_unitaries
+from .utils import uhf_to_rhf_unitaries
 
 
 def orbital_rotation_circuit(
@@ -75,11 +75,12 @@ def orbital_rotation_circuit(
     if prepare_hf:
         qc.append(ffsim.qiskit.PrepareHartreeFockJW(nao, nelec), qubits)
 
-    # Follow the notebook’s convention: feed transposed unitaries
-    qc.append(ffsim.qiskit.OrbitalRotationJW(nao, (Ua.T, Ub.T)), qubits)
+    # Todo: why does this work, does ffsim swap row/col convention?
+    Ua, Ub = Ua.T, Ub.T
+    qc.append(ffsim.qiskit.OrbitalRotationJW(nao, (Ua, Ub)), qubits)
 
     if optimize_single_slater:
-        # Optimize for an initialized single Slater determinant state
+        # Optimize for a single Slater determinant state
         qc = ffsim.qiskit.PRE_INIT.run(qc)
 
     return qc

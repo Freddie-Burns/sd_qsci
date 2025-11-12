@@ -93,14 +93,14 @@ def uhf_to_rhf_unitaries(mol: Mole, rhf: RHF, uhf: UHF) -> list:
 
     # Orbital-space unitaries that map UHF MOs -> RHF MOs (α and β)
     S = mol.intor("int1e_ovlp")
-    Ua = Ca_uhf.T @ S @ C_rhf
-    Ub = Cb_uhf.T @ S @ C_rhf
+    Ua = Ca_uhf.conj().T @ S @ C_rhf
+    Ub = Cb_uhf.conj().T @ S @ C_rhf
 
-    # Seems like this messes up the transform?
-    # if np.linalg.det(Ua) < 0:
-    #     Ua[:, 0] *= -1
-    # if np.linalg.det(Ub) < 0:
-    #     Ub[:, 0] *= -1
+    # Todo: why is the row negative not the column?
+    if np.linalg.det(Ua) < 0:
+        Ua[0] *= -1
+    if np.linalg.det(Ub) < 0:
+        Ub[0] *= -1
 
     return Ua, Ub
 
