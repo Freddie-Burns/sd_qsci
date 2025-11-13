@@ -6,6 +6,7 @@ as the input UHF state.
 
 import numpy as np
 import seaborn as sns
+from line_profiler import profile
 from matplotlib import pyplot as plt
 from pyscf import gto, scf, fci
 from scipy.linalg import eigh
@@ -15,6 +16,7 @@ from sd_qsci.utils import uhf_from_rhf
 from sd_qsci import circuit, hamiltonian
 
 
+@profile
 def main():
     """
     Run H6 triangular lattice energy calculations across multiple bond lengths.
@@ -36,7 +38,7 @@ def main():
     qsci_subspace_dims = []
     bond_lengths = []
 
-    for bond_length in np.linspace(0.5, 2.5, 21):
+    for bond_length in np.linspace(2, 2.5, 2):
         print(f"Running bond length: {bond_length:.2f} Angstrom")
         mol = build_h6_lattice(bond_length)
         rhf = scf.RHF(mol).run()
@@ -80,8 +82,8 @@ def main():
     ax2.grid(True, alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig('figures/h6_lattice_energies.png', dpi=300, bbox_inches='tight')
-    plt.show()
+    # plt.savefig('figures/h6_lattice_energies.png', dpi=300, bbox_inches='tight')
+    # plt.show()
 
     print("\nPlot saved as 'figures/h6_lattice_energies.png'")
 

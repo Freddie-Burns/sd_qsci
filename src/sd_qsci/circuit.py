@@ -1,5 +1,3 @@
-from __future__ import annotations  # prevents sphinx docs type error
-
 """
 Quantum-circuit helpers for orbital rotation workflows.
 
@@ -21,15 +19,21 @@ lazily inside functions. If they are missing, the functions will raise a
 clear ImportError with installation hints.
 """
 
-import numpy as np
+from __future__ import annotations  # prevents sphinx docs type error
 
+import numpy as np
+import ffsim
+from line_profiler import profile
 from pyscf.gto import Mole
 from pyscf.scf.hf import RHF
 from pyscf.scf.uhf import UHF
+from qiskit import QuantumCircuit, QuantumRegister, transpile
+from qiskit_aer import Aer
 
 from .utils import uhf_to_rhf_unitaries
 
 
+@profile
 def orbital_rotation_circuit(
     nao: int,
     nelec: tuple[int, int],
@@ -65,10 +69,6 @@ def orbital_rotation_circuit(
     qiskit.QuantumCircuit
         The constructed circuit.
     """
-
-    import ffsim
-    from qiskit import QuantumCircuit, QuantumRegister
-
     qubits = QuantumRegister(2 * nao, name="q")
     qc = QuantumCircuit(qubits)
 
@@ -126,6 +126,7 @@ def rhf_uhf_orbital_rotation_circuit(
     return qc
 
 
+@profile
 def simulate(qc, *, optimization_level: int=1):
     """
     Execute a circuit on Qiskit Aer statevector simulator and return the
@@ -143,9 +144,6 @@ def simulate(qc, *, optimization_level: int=1):
     statevector : qiskit.quantum_info.Statevector
         The final statevector object (has `.data` ndarray and utility methods).
     """
-    from qiskit_aer import Aer
-    from qiskit import transpile
-
     backend = Aer.get_backend("statevector_simulator")
     tqc = transpile(qc, backend, optimization_level=optimization_level)
     job = backend.run(tqc)

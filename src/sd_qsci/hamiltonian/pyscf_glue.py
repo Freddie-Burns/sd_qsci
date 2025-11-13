@@ -1,9 +1,11 @@
 import numpy as np
+from line_profiler import profile
 from pyscf import ao2mo
 from .spin_blocks import spin_expand_1e, spin_expand_2e_phys
 from .fermion_hamiltonian import hamiltonian_matrix
 
 
+@profile
 def hamiltonian_from_pyscf(mol, rhf):
     """
     Return the sparse Hamiltonian (csr) on the full spin-orbital Fock space.
