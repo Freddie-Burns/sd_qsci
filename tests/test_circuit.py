@@ -9,6 +9,7 @@ from sd_qsci.circuit import (
     rhf_uhf_orbital_rotation_circuit,
     simulate,
 )
+from sd_qsci.utils import uhf_from_rhf, uhf_to_rhf_unitaries
 
 
 def test_orbital_rotation_circuit():
@@ -60,10 +61,9 @@ def test_rhf_uhf_orbital_rotation_circuit_smoke():
     rhf = scf.RHF(mol)
     guess = rhf.get_init_guess(mol=mol, key="hcore")
     rhf.kernel(dm0=guess)
-
-    qc, uhf, (Ua, Ub) = rhf_uhf_orbital_rotation_circuit(
-        mol, rhf, optimize_single_slater=True
-    )
+    uhf = uhf_from_rhf(mol, rhf)
+    Ua, Ub = uhf_to_rhf_unitaries(mol, rhf, uhf)
+    qc = rhf_uhf_orbital_rotation_circuit(mol, rhf, uhf, optimize_single_slater=True)
 
     # UHF object returned
     assert isinstance(uhf, UHF)

@@ -73,14 +73,14 @@ def test_h2_sto3g_rhf_energy_matches():
     mol = gto.M(atom="H 0 0 0; H 0 0 1.0", basis="sto-3g")
     rhf = scf.RHF(mol).run()
 
-    H = occ_hamiltonian_from_pyscf(mol, rhf).toarray()
+    H = hamiltonian_from_pyscf(mol, rhf).toarray()
 
     # BLOCK ordering HF determinant: occupy α0 and β0 -> bit positions 0 and nmo
     nmo = rhf.mo_coeff.shape[1]
     ket_index = (1 << 0) | (1 << nmo)  # α0 + β0
     psi = np.zeros(H.shape[0], dtype=np.complex128); psi[ket_index] = 1.0
 
-    energy = np.real(psi.conj() @ (H @ psi))
+    energy = np.real(psi.conj().T @ H @ psi)
     assert np.isclose(energy, rhf.e_tot, atol=1e-6), f"{energy=} vs {rhf.e_tot=}"
 
 def test_rhf_energy_matches_pyscf_h2():
