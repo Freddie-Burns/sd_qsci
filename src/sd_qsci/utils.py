@@ -93,8 +93,10 @@ def uhf_to_rhf_unitaries(mol: Mole, rhf: RHF, uhf: UHF) -> list:
 
     # Orbital-space unitaries that map UHF MOs -> RHF MOs (α and β)
     S = mol.intor("int1e_ovlp")
-    Ua = Ca_uhf.conj().T @ S @ C_rhf
-    Ub = Cb_uhf.conj().T @ S @ C_rhf
+    # Ua = Ca_uhf.conj().T @ S @ C_rhf
+    # Ub = Cb_uhf.conj().T @ S @ C_rhf
+    Ua = C_rhf.conj().T @ S @ Ca_uhf
+    Ub = C_rhf.conj().T @ S @ Cb_uhf
 
     # Todo: why is the row negative not the column?
     if np.linalg.det(Ua) < 0:

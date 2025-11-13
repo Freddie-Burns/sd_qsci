@@ -76,7 +76,7 @@ def orbital_rotation_circuit(
         qc.append(ffsim.qiskit.PrepareHartreeFockJW(nao, nelec), qubits)
 
     # Todo: why does this work, does ffsim swap row/col convention?
-    Ua, Ub = Ua.T, Ub.T
+    # Ua, Ub = Ua.T, Ub.T
     qc.append(ffsim.qiskit.OrbitalRotationJW(nao, (Ua, Ub)), qubits)
 
     if optimize_single_slater:
