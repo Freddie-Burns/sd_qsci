@@ -6,7 +6,6 @@ as the input UHF state.
 
 import numpy as np
 import seaborn as sns
-from line_profiler import profile
 from matplotlib import pyplot as plt
 from pyscf import gto, scf, fci
 from scipy.linalg import eigh
@@ -16,7 +15,6 @@ from sd_qsci.utils import uhf_from_rhf
 from sd_qsci import circuit, hamiltonian
 
 
-@profile
 def main():
     """
     Run H6 triangular lattice energy calculations across multiple bond lengths.

@@ -1,0 +1,11 @@
+quantity,value
+bond_length,2.0
+rhf_energy,-2.375064123065409
+uhf_energy,-2.7950912633863694
+fci_energy,-2.8311798009611837
+n_fci_configs,400.0
+n_configs_below_uhf,258.0
+n_configs_reach_fci,400.0
+max_subspace_size,400.0
+min_qsci_energy,-2.8311798009611855
+energy_diff_to_fci,-1.7763568394002505e-15
