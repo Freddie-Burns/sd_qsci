@@ -10,7 +10,7 @@ Overview
 For a fixed bond length (2.0 A), the script:
 1. Runs RHF, UHF, and FCI calculations using PySCF
 2. Constructs the UHF statevector via orbital rotation circuit
-3. Analyzes how QSCI energy converges to FCI by varying the number of 
+3. Analyzes how QSCI energy converges to FCI by varying the number of
    configurations included based on amplitude ranking from the UHF statevector
 
 The key insight is that configurations with large amplitudes in the UHF
