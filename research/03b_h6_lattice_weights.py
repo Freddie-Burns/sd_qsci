@@ -75,7 +75,6 @@ Notes
 
 from pathlib import Path
 from dataclasses import dataclass
-from typing import Optional
 
 import numpy as np
 import pandas as pd
@@ -111,10 +110,10 @@ class QuantumChemistryResults:
 @dataclass
 class ConvergenceResults:
     """Container for convergence analysis results."""
-    df: pd.DataFrame  # Contains: subspace_size, qsci_energy, fci_subspace_energy, mean_sample_number
+    df: pd.DataFrame  # subspace_size, qsci_energy, fci_subspace_energy, mean_sample_number
     max_size: int
-    n_configs_below_uhf: Optional[int]
-    n_configs_reach_fci: Optional[int]
+    n_configs_below_uhf: None | int
+    n_configs_reach_fci: None | int
 
 
 def main():
