@@ -30,7 +30,9 @@ sd-qsci/
 ├─ src/
 │  └─ sd_qsci/            # Python package (imports as sd_qsci)
 │     ├─ __init__.py
-│     ├─ qc.py            # Quantum circuit creation and execution
+│     ├─ analysis.py      # Organising, plotting, and saving data
+│     ├─ circuit.py       # Quantum circuit creation and execution
+│     ├─ energy.py        # Energy evaluation
 │     ├─ spin.py          # Spin analysis utilities
 │     ├─ utils.py         # General utilities
 │     └─ hamiltonian/     # Hamiltonian construction from PySCF
