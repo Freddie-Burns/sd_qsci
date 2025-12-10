@@ -65,6 +65,8 @@ class ConvergenceResults:
     max_size: int
     n_configs_below_uhf: Optional[int]
     n_configs_reach_fci: Optional[int]
+    n_configs_below_uhf_symm: Optional[int]
+    n_configs_reach_fci_symm: Optional[int]
 
 
 def calculate_convergence_data(
@@ -97,11 +99,14 @@ def calculate_convergence_data(
 
     subspace_sizes = list(range(1, max_size + 1))
     qsci_energies = []
+    symm_energies = []
     fci_subspace_energies = []
     mean_sample_numbers = []
 
     n_configs_below_uhf = None
     n_configs_reach_fci = None
+    n_configs_below_uhf_symm = None
+    n_configs_reach_fci_symm = None
 
     print("sv norm:", np.linalg.norm(qc_results.sv.data))
     print("spin symm amp norm:", np.linalg.norm(qc_results.spin_symm_amp))
@@ -112,8 +117,10 @@ def calculate_convergence_data(
         data = qc_results.sv.data
 
     for size in subspace_sizes:
-        energy = calc_qsci_energy_with_size(qc_results.H, data, size)
-        qsci_energies.append(energy)
+        qsci_energy = calc_qsci_energy_with_size(qc_results.H, qc_results.sv.data, size)
+        symm_energy = calc_qsci_energy_with_size(qc_results.H, qc_results.spin_symm_amp, size)
+        qsci_energies.append(qsci_energy)
+        symm_energies.append(symm_energy)
 
         fci_sub_energy = calc_fci_subspace_energy(qc_results.H, qc_results.fci_vec, size)
         fci_subspace_energies.append(fci_sub_energy)
@@ -123,15 +130,19 @@ def calculate_convergence_data(
         mean_sample_number = 1.0 / (min_coeff ** 2)
         mean_sample_numbers.append(mean_sample_number)
 
-        if n_configs_below_uhf is None and energy < qc_results.uhf.e_tot:
+        if n_configs_below_uhf is None and qsci_energy < qc_results.uhf.e_tot:
             n_configs_below_uhf = size
-
-        if n_configs_reach_fci is None and abs(energy - qc_results.fci_energy) < fci_tol:
+        if n_configs_reach_fci is None and abs(qsci_energy - qc_results.fci_energy) < fci_tol:
             n_configs_reach_fci = size
+        if n_configs_below_uhf_symm is None and symm_energy < qc_results.uhf.e_tot:
+            n_configs_below_uhf_symm = size
+        if n_configs_reach_fci_symm is None and abs(symm_energy - qc_results.fci_energy) < fci_tol:
+            n_configs_reach_fci_symm = size
 
     df = pd.DataFrame({
         'subspace_size': subspace_sizes,
         'qsci_energy': qsci_energies,
+        'spin_symm_energy': symm_energies,
         'fci_subspace_energy': fci_subspace_energies,
         'mean_sample_number': mean_sample_numbers
     })
@@ -141,6 +152,8 @@ def calculate_convergence_data(
         max_size=max_size,
         n_configs_below_uhf=n_configs_below_uhf,
         n_configs_reach_fci=n_configs_reach_fci,
+        n_configs_below_uhf_symm=n_configs_below_uhf_symm,
+        n_configs_reach_fci_symm=n_configs_reach_fci_symm,
     )
 
 
@@ -393,11 +406,35 @@ def plot_convergence_comparison(
     sns.set_style("whitegrid")
     fig, ax = plt.subplots(figsize=(12, 8))
 
-    ax.plot(conv_results.df['subspace_size'], conv_results.df['qsci_energy'], 'o-',
-            label='QSCI (UHF-based selection)', linewidth=2, markersize=4, color='purple')
+    ax.plot(
+        conv_results.df['subspace_size'],
+        conv_results.df['qsci_energy'],
+        'o-',
+        label='QSCI (UHF-based selection)',
+        linewidth=2,
+        markersize=4,
+        color='#0072B2',
+    )
 
-    ax.plot(conv_results.df['subspace_size'], conv_results.df['fci_subspace_energy'], 's-',
-            label='FCI subspace (FCI-based selection)', linewidth=2, markersize=4, color='darkgreen')
+    ax.plot(
+        conv_results.df['subspace_size'],
+        conv_results.df['spin_symm_energy'],
+        '^-',
+        label='QSCI (spin recovery)',
+        linewidth=2,
+        markersize=4,
+        color='#D55E00',
+    )
+
+    ax.plot(
+        conv_results.df['subspace_size'],
+        conv_results.df['fci_subspace_energy'],
+        's-',
+        label='FCI subspace (FCI-based selection)',
+        linewidth=2,
+        markersize=4,
+        color='#009E73',
+    )
 
     ax.axhline(y=qc_results.rhf.e_tot, color='blue', linestyle='--', linewidth=2,
                label=f'RHF: {qc_results.rhf.e_tot:.6f} Ha')

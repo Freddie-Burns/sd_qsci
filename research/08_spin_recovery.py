@@ -73,8 +73,8 @@ Notes
 - Configuration selection based on absolute amplitude values
 """
 
+
 from pathlib import Path
-from pprint import pprint
 
 import numpy as np
 from pyscf import gto, scf
@@ -82,6 +82,7 @@ from pyscf import gto, scf
 from sd_qsci import analysis
 from sd_qsci.utils import uhf_from_rhf
 from sd_qsci import circuit, hamiltonian, spin
+
 
 # Script-specific tolerances
 SV_TOL = 1e-2
@@ -131,6 +132,10 @@ def run_full_analysis(bond_length, n_atoms):
 
 
 def print_top_configs(bond_length=2, n_atoms=6):
+    """
+    Printing the top amplitudes from the rotated UHF statevector.
+    This is to quickly see if the spin recovery is required/working.
+    """
     # Run quantum chemistry calculations
     mol = build_h_chain(bond_length, n_atoms)
     rhf = scf.RHF(mol).run()
@@ -144,8 +149,9 @@ def print_top_configs(bond_length=2, n_atoms=6):
     max_idx = sorted_idx[:20]
     n_bits = int(np.log2(sv.data.size))
 
+    # For the highest amplitude configurations print their amplitude, index,
+    # bitstring, and occupation vector in a table format.
     print("Norm" + ' '*6 + "Int" + ' '*5 + "Bitstring" + ' '*(n_bits-4) + "Occ")
-
     for i in max_idx:
         bitstring = bin(i)[2:].zfill(n_bits)
         occ_vec = occupation_vector(bitstring, n_bits)
@@ -161,8 +167,9 @@ def print_top_configs(bond_length=2, n_atoms=6):
     max_idx = sorted_idx[:20]
     n_bits = int(np.log2(symm_amp.size))
 
+    # For the highest amplitude configurations after spin recovery, print their
+    # amplitude, index, bitstring, and occupation vector in a table format.
     print("Norm" + ' '*6 + "Int" + ' '*5 + "Bitstring" + ' '*(n_bits-4) + "Occ")
-
     for i in max_idx:
         bitstring = bin(i)[2:].zfill(n_bits)
         occ_vec = occupation_vector(bitstring, n_bits)
@@ -171,12 +178,26 @@ def print_top_configs(bond_length=2, n_atoms=6):
         print(f"{sv_amp:.4f}    {i:4d}    {bitstring_ab}    {occ_vec}")
 
 
-def format_list(lst):
-    return "[" + ", ".join(f"{x:>2}" for x in lst) + "]"
+def occupation_vector(bitstring, n_bits) -> str:
+    """
+    Given a bitstring, return the occupation vector.
+    Closed shells are represented by 0 or 2 for unoccupied or occupied.
+    Open shells are represented by α or β for up or down spin occupancy.
 
+    The RHF molecular orbitals are ordered from highest to lowest energy.
+    This is inline with the Qiskit qubit ordering convention.
 
-def occupation_vector(bitstring, n_bits):
-    # Alpha, beta, and occupation number vectors
+    Parameters
+    ----------
+    bitstring: str
+        Binary representation of the bitstring.
+
+    Returns
+    -------
+    occ_vec: str
+        Occupation vector representation of the bitstring.
+    """
+    # Ensure string format
     bitstring = str(bitstring)
     alpha, beta = bitstring[:n_bits//2], bitstring[n_bits//2:]
     occ_vec = ""
@@ -192,7 +213,7 @@ def occupation_vector(bitstring, n_bits):
     return occ_vec
 
 
-def build_h_chain(bond_length, n_atoms=6):
+def build_h_chain(bond_length, n_atoms=6) -> gto.Mole:
     """
     Build a chain of hydrogen atoms.
     """
@@ -210,8 +231,12 @@ def build_h_chain(bond_length, n_atoms=6):
     return mol
 
 
-def print_summary(data_dir: Path, qc_results: analysis.QuantumChemistryResults,
-                 conv_results: analysis.ConvergenceResults, qsci_energy_final: float):
+def print_summary(
+        data_dir: Path,
+        qc_results: analysis.QuantumChemistryResults,
+        conv_results: analysis.ConvergenceResults,
+        qsci_energy_final: float,
+) -> None:
     """
     Print summary of results to console.
     """
