@@ -723,10 +723,11 @@ def plot_statevector_coefficients(
     ylog: bool = False,
 ):
     """
-    Plot comparison of QSCI and FCI statevector coefficients.
+    Plot comparison of QSCI, spin-recovered QSCI, and FCI statevector coefficients.
 
     Creates two plots: one showing the top n_top configurations as a bar chart,
     and another showing all significant configurations on a log scale.
+    The QSCI series is shown both before and after spin-symmetry recovery.
 
     Parameters
     ----------
@@ -750,19 +751,24 @@ def plot_statevector_coefficients(
         - 'overlap': Overlap between FCI and QSCI vectors
     """
     fci_abs = np.abs(fci_vec)
+    # Build spin-recovered amplitudes from the provided QSCI vector
+    qsci_symm_vec = spin_symm_amplitudes(qsci_vec)
     top_indices = np.argsort(fci_abs)[-n_top:][::-1]
 
     qsci_coefs = np.abs(qsci_vec[top_indices])
+    qsci_symm_coefs = np.abs(qsci_symm_vec[top_indices])
     fci_coefs = fci_abs[top_indices]
 
     sns.set_style("whitegrid")
     fig, ax = plt.subplots(figsize=(14, 8))
 
     x = np.arange(n_top)
-    width = 0.35
+    width = 0.28
 
-    ax.bar(x - width/2, fci_coefs, width, label='FCI', color='green', alpha=0.8)
-    ax.bar(x + width/2, qsci_coefs, width, label='QSCI', color='purple', alpha=0.8)
+    # Three side-by-side bars: FCI, QSCI, QSCI Spin-Recovered
+    ax.bar(x - width, fci_coefs, width, label='FCI', color='green', alpha=0.8)
+    ax.bar(x, qsci_coefs, width, label='QSCI', color='purple', alpha=0.8)
+    ax.bar(x + width, qsci_symm_coefs, width, label='QSCI (Spin Recovered)', color='#D55E00', alpha=0.8)
 
     ax.set_xlabel('Configuration Index (sorted by FCI amplitude)', fontsize=12)
     ax.set_ylabel('|Coefficient|', fontsize=12)
@@ -781,7 +787,7 @@ def plot_statevector_coefficients(
 
     fig2, ax2 = plt.subplots(figsize=(14, 8))
 
-    significant_mask = (fci_abs > 1e-10) | (np.abs(qsci_vec) > 1e-10)
+    significant_mask = (fci_abs > 1e-10) | (np.abs(qsci_vec) > 1e-10) | (np.abs(qsci_symm_vec) > 1e-10)
     significant_indices = np.where(significant_mask)[0]
 
     sort_order = np.argsort(fci_abs[significant_indices])[::-1]
@@ -789,11 +795,13 @@ def plot_statevector_coefficients(
 
     fci_sig = fci_abs[sorted_indices]
     qsci_sig = np.abs(qsci_vec[sorted_indices])
+    qsci_symm_sig = np.abs(qsci_symm_vec[sorted_indices])
 
     x_all = np.arange(len(sorted_indices))
 
     ax2.semilogy(x_all, fci_sig, 'o-', label='FCI', color='green', markersize=3, linewidth=1)
     ax2.semilogy(x_all, qsci_sig, 's-', label='QSCI', color='purple', markersize=3, linewidth=1, alpha=0.7)
+    ax2.semilogy(x_all, qsci_symm_sig, '^-', label='QSCI (Spin Recovered)', color='#D55E00', markersize=3, linewidth=1, alpha=0.8)
 
     ax2.set_xlabel('Configuration Index (sorted by FCI amplitude)', fontsize=12)
     ax2.set_ylabel('|Coefficient| (log scale)', fontsize=12)
@@ -813,7 +821,9 @@ def plot_statevector_coefficients(
         'n_significant_qsci': int(np.sum(np.abs(qsci_vec) > 1e-10)),
         'max_fci_coef': float(np.max(fci_abs)),
         'max_qsci_coef': float(np.max(np.abs(qsci_vec))),
-        'overlap': float(np.abs(np.vdot(fci_vec, qsci_vec)))
+        'max_qsci_spin_recovered_coef': float(np.max(np.abs(qsci_symm_vec))),
+        'overlap': float(np.abs(np.vdot(fci_vec, qsci_vec))),
+        'overlap_spin_recovered': float(np.abs(np.vdot(fci_vec, qsci_symm_vec)))
     }
     return stats
 
