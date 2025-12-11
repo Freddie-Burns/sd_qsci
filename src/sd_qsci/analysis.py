@@ -385,6 +385,7 @@ def plot_convergence_comparison(
     qc_results: QuantumChemistryResults,
     conv_results: ConvergenceResults,
     title_prefix: Optional[str] = None,
+    ylog: bool = False,
 ):
     """
     Create and save convergence comparison plot.
@@ -410,7 +411,7 @@ def plot_convergence_comparison(
         conv_results.df['subspace_size'],
         conv_results.df['qsci_energy'],
         'o-',
-        label='UHF',
+        label='UHF State',
         linewidth=2,
         markersize=4,
         color='#0072B2',
@@ -425,7 +426,7 @@ def plot_convergence_comparison(
         df_symm['subspace_size'],
         df_symm['spin_symm_energy'],
         '^-',
-        label='UHF Spin Recovered',
+        label='UHF State Spin Recovered',
         linewidth=2,
         markersize=4,
         color='#D55E00',
@@ -464,6 +465,9 @@ def plot_convergence_comparison(
 
     ax.set_xlabel('Subspace Size (Number of Configurations)', fontsize=12)
     ax.set_ylabel('Energy (Hartree)', fontsize=12)
+    if ylog:
+        # Use symmetric log to allow negative energies while still showing magnitude
+        ax.set_yscale('symlog', linthresh=1e-6)
     bond_info = f"Bond Length = {qc_results.bond_length:.2f} Å" if qc_results.bond_length is not None else ""
     title = (f"Energy Convergence Comparison\n{bond_info}")
     if title_prefix:
@@ -485,6 +489,7 @@ def plot_energy_vs_samples(
     qc_results: QuantumChemistryResults,
     conv_results: ConvergenceResults,
     title_prefix: Optional[str] = None,
+    ylog: bool = False,
 ):
     """
     Create and save energy vs mean-sample-number plot.
@@ -506,15 +511,54 @@ def plot_energy_vs_samples(
     sns.set_style("whitegrid")
     fig, ax = plt.subplots(figsize=(12, 8))
 
-    # Logarithmic scale for mean sample number on x-axis
+    # Build mean-sample-number series for raw and spin-recovered selections
+    sizes = list(conv_results.df['subspace_size'])
+
+    def mean_samples_for_sizes(data: np.ndarray, sizes_list: list[int]) -> list[float]:
+        vals = []
+        # Determine selection order by amplitude magnitude
+        order = np.argsort(np.abs(data))
+        for size in sizes_list:
+            idx = order[-int(size):]
+            min_coeff = float(np.min(np.abs(data[idx]))) if len(idx) > 0 else 0.0
+            ms = float(1.0 / (min_coeff ** 2)) if min_coeff > 0 else np.inf
+            vals.append(ms)
+        return vals
+
+    # Raw (UHF-rotated) amplitudes across all sizes
+    ms_raw = mean_samples_for_sizes(qc_results.sv.data, sizes)
+
+    # Spin-recovered amplitudes only at spin-closed subspace sizes
+    spin_sizes_all = sorted(set(spin_closed_subspace_sizes(qc_results.sv.data)))
+    # clip to available computed range
+    if len(sizes) > 0:
+        max_size = int(sizes[-1])
+        spin_sizes = [int(s) for s in spin_sizes_all if int(s) <= max_size]
+    else:
+        spin_sizes = []
+    ms_symm = mean_samples_for_sizes(qc_results.spin_symm_amp, spin_sizes) if len(spin_sizes) else []
+
+    # Plot raw QSCI energy vs raw mean sample number
     ax.semilogx(
-        conv_results.df['mean_sample_number'],
-        conv_results.df['qsci_energy'], 'o-',
-        label='QSCI (UHF-based selection)',
+        ms_raw,
+        list(conv_results.df['qsci_energy']), 'o-',
+        label='UHF State',
         linewidth=2,
         markersize=4,
-        color='purple',
+        color='#0072B2',
     )
+
+    # Plot spin-recovered energy vs mean sample number (only at spin-closed sizes)
+    if len(spin_sizes):
+        df_symm = conv_results.df[conv_results.df['subspace_size'].isin(spin_sizes)]
+        ax.semilogx(
+            ms_symm,
+            list(df_symm['spin_symm_energy']), 's-',
+            label='UHF State Spin Recovered',
+            linewidth=2,
+            markersize=4,
+            color='#D55E00',
+        )
 
     # RHF energy reference line
     ax.axhline(
@@ -544,6 +588,8 @@ def plot_energy_vs_samples(
     # Label axes
     ax.set_xlabel('Mean Sample Number (log scale)', fontsize=12)
     ax.set_ylabel('Energy (Hartree)', fontsize=12)
+    if ylog:
+        ax.set_yscale('symlog', linthresh=1e-6)
 
     # Create title with bond length if available
     if qc_results.bond_length is None: bond_info = ""
@@ -569,6 +615,7 @@ def plot_total_spin_vs_subspace(
     qc_results: QuantumChemistryResults,
     conv_results: ConvergenceResults,
     title_prefix: Optional[str] = None,
+    ylog: bool = False,
 ):
     """
     Plot total spin <S^2> versus subspace size with/without spin symmetry recovery.
@@ -650,6 +697,8 @@ def plot_total_spin_vs_subspace(
 
     ax.set_xlabel('Subspace Size (Number of Configurations)', fontsize=12)
     ax.set_ylabel(r'Total spin $\langle S^2 \rangle$', fontsize=12)
+    if ylog:
+        ax.set_yscale('log')
     bond_info = f"Bond Length = {qc_results.bond_length:.2f} Å" if qc_results.bond_length is not None else ""
     title = (f"Total Spin vs Subspace Size\n{bond_info}")
     if title_prefix:
@@ -671,6 +720,7 @@ def plot_statevector_coefficients(
     fci_vec: np.ndarray,
     data_dir: Path,
     n_top: int = 20,
+    ylog: bool = False,
 ):
     """
     Plot comparison of QSCI and FCI statevector coefficients.
@@ -716,6 +766,8 @@ def plot_statevector_coefficients(
 
     ax.set_xlabel('Configuration Index (sorted by FCI amplitude)', fontsize=12)
     ax.set_ylabel('|Coefficient|', fontsize=12)
+    if ylog:
+        ax.set_yscale('log')
     ax.set_title(f'Top {n_top} Configuration Coefficients', fontsize=14, fontweight='bold')
     ax.set_xticks(x)
     ax.set_xticklabels([f'{i}' for i in top_indices], rotation=45, ha='right')
