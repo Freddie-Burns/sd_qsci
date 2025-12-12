@@ -79,9 +79,8 @@ from pathlib import Path
 import numpy as np
 from pyscf import gto, scf
 
-from sd_qsci import analysis
+from sd_qsci import analysis, circuit
 from sd_qsci.utils import uhf_from_rhf
-from sd_qsci import circuit, hamiltonian, spin
 
 
 # Script-specific tolerances
