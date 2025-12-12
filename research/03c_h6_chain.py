@@ -100,7 +100,7 @@ def main():
     qc_results = analysis.run_quantum_chemistry_calculations(mol, rhf, bond_length)
 
     # Calculate convergence data
-    conv_results = analysis.calculate_convergence_data(qc_results)
+    conv_results = analysis.calc_convergence_data(qc_results)
 
     # Save data to CSV
     analysis.save_convergence_data(data_dir, qc_results, conv_results)

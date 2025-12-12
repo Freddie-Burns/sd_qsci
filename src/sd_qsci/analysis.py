@@ -69,7 +69,7 @@ class ConvergenceResults:
     n_configs_reach_fci_symm: Optional[int]
 
 
-def calculate_convergence_data(
+def calc_convergence_data(
     qc_results: QuantumChemistryResults,
     sv_tol: float = DEFAULT_SV_TOL,
     fci_tol: float = DEFAULT_FCI_TOL,
@@ -965,7 +965,7 @@ def spin_closed_subspace_sizes(sv_data: np.ndarray) -> list[int]:
 __all__ = [
     'QuantumChemistryResults',
     'ConvergenceResults',
-    'calculate_convergence_data',
+    'calc_convergence_data',
     'calc_fci_energy',
     'calc_fci_subspace_energy',
     'calc_qsci_energy_with_size',

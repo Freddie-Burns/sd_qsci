@@ -61,7 +61,7 @@ def main():
 
             # Calculate convergence data
             print(f"  Calculating convergence data...")
-            conv_results = analysis.calculate_convergence_data(
+            conv_results = analysis.calc_convergence_data(
                 qc_results,
                 sv_tol=SV_TOL,
                 fci_tol=FCI_TOL
