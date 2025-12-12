@@ -28,7 +28,6 @@ from pyscf.cc import CCSD
 from pyscf.gto import Mole
 from pyscf.scf.hf import RHF
 from pyscf.scf.uhf import UHF
-from pyscf import cc as pyscf_cc
 from qiskit import QuantumCircuit, QuantumRegister, transpile
 from qiskit_aer import Aer
 
@@ -96,11 +95,11 @@ def get_lucj_circuit(
                 circuit.data.pop(index-i)
             n_gates = len(circuit.data)
 
-    # reorder spin convention uuuu...dddd... -> udududud...
-    qc = transpile(circuit, initial_layout={q:2*(i%norb)+(i//norb) for i,q in enumerate(qubits)}, optimization_level=0)
-    qc = qc.copy() # Not sure why, don't question it I guess
-    qc.measure_all()
-    return transpile(qc, backend=backend, optimization_level=3)
+    # Keep block-spin ordering (alpha first, then beta): uuuu...dddd...
+    # Example for 4 spatial orbitals HF occupations -> 00110011 (alpha block then beta block)
+    # Note: Do NOT measure here; measurement collapses the state and yields a
+    # single-basis statevector. Leave the circuit unmeasured for statevector sims.
+    return transpile(circuit, backend=backend, optimization_level=3)
 
 
 @profile
@@ -224,7 +223,5 @@ def simulate(qc, *, optimization_level: int=1):
 __all__ = [
     "orbital_rotation_circuit",
     "rhf_uhf_orbital_rotation_circuit",
-    "lucj_block_spin_circuit",
-    "lucj_block_spin_circuit_from_ccsd",
     "simulate",
 ]
